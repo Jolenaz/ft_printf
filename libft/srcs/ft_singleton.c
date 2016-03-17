@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_singleton.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/17 09:05:33 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/17 11:55:04 by jbelless         ###   ########.fr       */
+/*   Created: 2016/03/17 16:50:05 by jbelless          #+#    #+#             */
+/*   Updated: 2016/03/17 16:51:41 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINT_H
-# define FT_PRINT_H
-
 #include "libft.h"
-# include <stdarg.h>
 
-typedef struct	s_elem
+int	ft_singleton(int *i)
 {
-	struct e_elem *next;
-}				t_elem;
+	static int sauv;
 
-typedef struct s_stu
-{
-	int		nb;
-	t_elem	*elem;
-}				t_stu;
-
-int	ft_printf(const char *format, ...);
-
-#endif
+	if (i == NULL)
+		return (sauv);
+	else
+		sauv = *i;
+	return (0);
+}

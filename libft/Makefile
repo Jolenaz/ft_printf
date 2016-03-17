@@ -6,7 +6,7 @@
 #    By: jbelless <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 08:56:13 by jbelless          #+#    #+#              #
-#    Updated: 2016/03/07 14:03:18 by jbelless         ###   ########.fr        #
+#    Updated: 2016/03/17 16:52:30 by jbelless         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRCS_NAME  = 	ft_atoi.c \
 		ft_lstaddback.c \
 		ft_lstlen.c \
 		ft_lststr_to_tab.c \
+		ft_singleton.c \
 		get_next_line.c
 
 OBJS = $(SRCS_NAME:.c=.o)

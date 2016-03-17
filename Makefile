@@ -64,6 +64,7 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #_- Source Files -_#
 #==================#
 SRC_NAME = main.c \
+		   ft_printf.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
