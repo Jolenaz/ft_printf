@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:05:33 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/17 11:55:04 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:40:46 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@
 
 typedef struct	s_elem
 {
-	struct e_elem *next;
+	int		isflag;
+	char	flag;
+	int		isize;
+	int		size;
+	int		isprcs
+	int		prcs;
+	int		ismod;
+	char	mod;
+	char	type;
+	struct	e_elem *next;
 }				t_elem;
 
 typedef struct s_stu
