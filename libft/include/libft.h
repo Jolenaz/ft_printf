@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 08:48:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/17 16:52:10 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:19:02 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ size_t			ft_lstlen(t_list *lst);
 char			**ft_lststr_to_tab(t_list *lst);
 int				ft_power(int a, int b);
 double			ft_fpower(double a, int b);
-int				ft_singleton(int *i);
+int				ft_singleton(int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:06:53 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/17 17:41:25 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/18 17:12:50 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 int main()
 {
-	char *str = "%0.1s\n";
-	char *str2 = "%0*.*s\n\n";
-
+	int res;
+	char *str = "%.3*x\n";
+//	char *str2 = "%0-5#  ";
+/*
 	printf(str, "abc");
 	printf(str2, 1,1, "abc");
 	printf(str, "abcd");
@@ -28,6 +29,9 @@ int main()
 	printf(str2,1,1, "abcdef");
 	printf(str, "abcdefg");
 	printf(str2,1,1, "abcdefg");
+*/
+	res = printf(str,-6,255);
 
+	printf("_______\nnb de char ecrit : %d\n",res);
 	return (0);
 }
