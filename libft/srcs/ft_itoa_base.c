@@ -6,19 +6,19 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 10:33:19 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 11:25:13 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:28:47 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_fill(char tab[34], int i, int base, int neg)
+static void	ft_fill(char tab[100], long int i, int base, int neg)
 {
 	char	*chif;
 	int		j;
 
 	chif = ft_strdup("0123456789abcdef");
-	j = 32;
+	j = 98;
 	while (i)
 	{
 		tab[j] = chif[i % base];
@@ -30,13 +30,13 @@ static void	ft_fill(char tab[34], int i, int base, int neg)
 	free(chif);
 }
 
-char		*ft_itoa_base(int i, int base)
+char		*ft_itoa_base(long int i, int base)
 {
 	int		neg;
-	char	tab[34];
+	char	tab[100];
 	char	*c;
 
-	bzero(tab, 34);
+	bzero(tab, 100);
 	neg = 0;
 	if (i == 0)
 	{
