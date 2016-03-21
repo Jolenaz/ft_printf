@@ -6,15 +6,21 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:05:33 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/18 16:57:50 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/21 10:50:54 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINT_H
 # define FT_PRINT_H
 
-#include "libft.h"
+# include "libft.h"
 # include <stdarg.h>
+# define NOFLAG 0
+# define DIESFLAG 1
+# define PLUSFLAG 2
+# define MOINSFLAG 4
+# define ESPFLAG 8
+# define ZEROFLAG 16
 
 typedef enum	s_mod
 {
@@ -31,7 +37,7 @@ typedef struct s_stu
 {
 	int		nb;
 	int		isflag;
-	int		flag;
+	char	flag;
 	int		iwidth;
 	int		width;
 	int		isprcs;

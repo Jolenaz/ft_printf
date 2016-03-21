@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/18 17:12:48 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/21 10:32:52 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@ char	*ft_width(char *c, t_stu *stu)
 
 void	ft_flag(char c, t_stu *stu)
 {
-	if (c && stu)
-		return;
-	return;
+	if (c == '#')
+		stu->flag = stu->flag | DIESFLAG;
+	else if (c == '+')
+		stu->flag = stu->flag | PLUSFLAG;
+	else if (c == '-')
+		stu->flag = stu->flag | MOINSFLAG;
+	else if (c == ' ')
+		stu->flag = stu->flag | ESPFLAG;
+	else if (c == '0')
+		stu->flag = stu->flag | ZEROFLAG;
+
 }
 
 char	*ft_read(char *str, t_stu *stu, int *i)
@@ -122,6 +130,7 @@ void ft_nbp(const char *str, t_stu *stu)
 
 void	ft_init_stu(t_stu *stu)
 {
+	stu->flag = 0;
 	stu->mod = none;
 	stu->conv = 0;
 }
