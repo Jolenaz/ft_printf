@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 10:32:52 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/21 17:22:07 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,29 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ESPFLAG;
 	else if (c == '0')
 		stu->flag = stu->flag | ZEROFLAG;
+//	printf("%s\n",ft_itoa_base(stu->flag, 2));
 
+}
+
+void	ft_fct(void	(*ft_conv[127])(t_stu*))
+{
+	ft_conv['s'] = &ft_printf_s;
+	ft_conv['i'] = &ft_printf_d;
+	ft_conv['d'] = &ft_printf_d;
+	ft_conv['p'] = &ft_printf_p;
+	ft_conv['x'] = &ft_printf_x;
+	ft_conv['X'] = &ft_printf_grx;
+	ft_conv['o'] = &ft_printf_o;
+	ft_conv['u'] = &ft_printf_u;
+	ft_conv['c'] = &ft_printf_c;
 }
 
 char	*ft_read(char *str, t_stu *stu, int *i)
 {
-	char cont;
+	char	cont;
+	void	(*ft_conv[127])(t_stu*);
 
+	ft_fct(ft_conv);
 	cont = 1;
 	while (cont)
 	{
@@ -81,6 +97,11 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 			stu->mod = z;
 		else if (*str  == '#' || *str  == '+' || *str  == '-' || *str  == ' ' || *str  == '0')
 			ft_flag(*str, stu);
+		else if (*str == '.')
+		{
+			if (*(str + 1) < '0' && *(str + 1) > '9' && *(str + 1) != '*')
+				stu->prcs = 0;	
+		}
 		else if (*str >= '1' && *str <= '9')
 		{
 			if (*(str - 1) == '.')
@@ -88,9 +109,17 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 			else
 				str = ft_width(str, stu);
 		}
+		else if (*str == '*')
+		{
+			if (*(str - 1) == '.')
+				stu->prcs = va_arg(stu->ap, int);
+			else
+				stu->width = va_arg(stu->ap, int);
+		}
 		else if (ft_strchr("sSpdDioOuUxXcC",*str) && *str)
 		{
 			stu->conv = *str;
+			(ft_conv[(int)*str])(stu);
 			cont = 0;
 			(*i)++;
 		}
@@ -105,12 +134,11 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 		}
 		str++;
 	}
-	//	printf ("________\n%d\n",stu->mod);
-	//	printf ("%c\n",stu->conv);
+//	printf("convertion : %c\n",stu->conv);
 	return (str);
 }
 
-void ft_nbp(const char *str, t_stu *stu)
+void ft_read_format(const char *str, t_stu *stu)
 {
 	char *c = (char *)str;
 	int i = 0;
@@ -137,12 +165,13 @@ void	ft_init_stu(t_stu *stu)
 
 int	ft_printf(const char *str, ...)
 {
-	int res;
-	t_stu stu;
+	int		res;
+	t_stu	stu;
 
 	ft_init_stu(&stu);
-	ft_nbp(str, &stu);
-	printf("\n_______\nnb de %% =  %d\n",stu.nb);
+	va_start(stu.ap, str);
+	ft_read_format(str, &stu);
+//	printf("\n_______nb de %% =  %d\n",stu.nb);
 
 	res = ft_singleton(-1);
 	ft_singleton(0);
