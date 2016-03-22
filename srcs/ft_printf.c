@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 14:29:38 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:40:58 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,14 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 			if (*(str - 1) == '.')
 				stu->prcs = va_arg(stu->ap, int);
 			else
+			{
 				stu->width = va_arg(stu->ap, int);
+				if (stu->width < 0)
+				{
+					stu->width *= -1;
+					stu->flag = stu->flag | MOINSFLAG;
+				}
+			}
 		}
 		else if (ft_strchr("sSpdDioOuUxXcC",*str) && *str)
 		{
@@ -163,7 +170,7 @@ void	ft_init_stu(t_stu *stu)
 	stu->flag = 0;
 	stu->mod = none;
 	stu->conv = 0;
-	stu->prcs = 0;
+	stu->prcs = -1;
 	stu->width = 0;
 }
 
