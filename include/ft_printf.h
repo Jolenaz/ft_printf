@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:05:33 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 17:00:46 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 08:47:11 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ typedef struct s_stu
 	int		nb;
 	int		isflag;
 	char	flag;
-	int		iwidth;
 	int		width;
-	int		isprcs;
 	int		prcs;
 	int		ismod;
 	va_list	ap;
@@ -57,5 +55,8 @@ void	ft_printf_grx(t_stu *stu);
 void	ft_printf_o(t_stu *stu);
 void	ft_printf_u(t_stu *stu);
 void	ft_printf_c(t_stu *stu);
+void	ft_printf_grd(t_stu *stu);
+void	ft_printf_gro(t_stu *stu);
+void	ft_printf_gru(t_stu *stu);
 
 #endif
