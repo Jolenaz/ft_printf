@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:53:56 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 12:33:33 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:29:45 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_printf_s(t_stu* stu)
 	int i;
 
 	str = ft_strdup(va_arg(stu->ap, char *));
-	printf("test\n");
+	if ((size_t)stu->prcs <= ft_strlen(str))
+	{
+		str[stu->prcs] = 0;
+	}
 	if ((size_t)stu->width >= ft_strlen(str))
 	{
 		if (stu->width && ((stu->flag & MOINSFLAG) == 0))

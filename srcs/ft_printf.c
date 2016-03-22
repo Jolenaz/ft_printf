@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 12:35:57 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:29:38 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_prcs(char *c, t_stu *stu)
 	{
 		c++;
 	}
-	return(c--);
+	return(--c);
 }
 
 char	*ft_width(char *c, t_stu *stu)
@@ -30,7 +30,7 @@ char	*ft_width(char *c, t_stu *stu)
 	{
 		c++;
 	}
-	return(c--);
+	return(--c);
 }
 
 void	ft_flag(char c, t_stu *stu)
@@ -45,7 +45,7 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ESPFLAG;
 	else if (c == '0')
 		stu->flag = stu->flag | ZEROFLAG;
-	printf("%s\n",ft_itoa_base(stu->flag, 2));
+//	printf("%s\n",ft_itoa_base(stu->flag, 2));
 
 }
 
@@ -98,14 +98,14 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 			stu->mod = j;
 		else if (*str == 'z')
 			stu->mod = z;
-		else if (*str  == '#' || *str  == '+' || *str  == '-' || *str  == ' ' || *str  == '0')
+		else if (*str  == '#' || *str  == '+' || *str  == '-' || *str  == ' ' || (*str  == '0' && *(str - 1) != '.'))
 			ft_flag(*str, stu);
 		else if (*str == '.')
 		{
-			if (*(str + 1) < '0' && *(str + 1) > '9' && *(str + 1) != '*')
+			if (*(str + 1) < '1' && *(str + 1) > '9' && *(str + 1) != '*')
 				stu->prcs = 0;	
 		}
-		else if (*str >= '1' && *str <= '9')
+		else if (*str >= '0' && *str <= '9')
 		{
 			if (*(str - 1) == '.')
 				str = ft_prcs(str, stu);
