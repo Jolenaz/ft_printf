@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 17:22:07 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 12:35:57 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	*ft_prcs(char *c, t_stu *stu)
 {
 	stu->prcs = ft_atoi(c);
-	while (*c > '0' && *c < '9')
+	while (*c >= '0' && *c <= '9')
 	{
 		c++;
 	}
@@ -26,7 +26,7 @@ char	*ft_prcs(char *c, t_stu *stu)
 char	*ft_width(char *c, t_stu *stu)
 {
 	stu->width = ft_atoi(c);
-	while (*c > '0' && *c < '9')
+	while (*c >= '0' && *c <= '9')
 	{
 		c++;
 	}
@@ -45,7 +45,7 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ESPFLAG;
 	else if (c == '0')
 		stu->flag = stu->flag | ZEROFLAG;
-//	printf("%s\n",ft_itoa_base(stu->flag, 2));
+	printf("%s\n",ft_itoa_base(stu->flag, 2));
 
 }
 
@@ -60,6 +60,9 @@ void	ft_fct(void	(*ft_conv[127])(t_stu*))
 	ft_conv['o'] = &ft_printf_o;
 	ft_conv['u'] = &ft_printf_u;
 	ft_conv['c'] = &ft_printf_c;
+	ft_conv['D'] = &ft_printf_grd;
+	ft_conv['O'] = &ft_printf_gro;
+	ft_conv['U'] = &ft_printf_gru;
 }
 
 char	*ft_read(char *str, t_stu *stu, int *i)
@@ -134,7 +137,6 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 		}
 		str++;
 	}
-//	printf("convertion : %c\n",stu->conv);
 	return (str);
 }
 
@@ -161,6 +163,8 @@ void	ft_init_stu(t_stu *stu)
 	stu->flag = 0;
 	stu->mod = none;
 	stu->conv = 0;
+	stu->prcs = 0;
+	stu->width = 0;
 }
 
 int	ft_printf(const char *str, ...)

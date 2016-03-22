@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 08:48:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 15:29:07 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:00:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int				ft_power(int a, int b);
 double			ft_fpower(double a, int b);
 int				ft_singleton(int i);
 char			*ft_itoa_base(long int i, int base);
+char			*ft_itoa_base_ul(unsigned long i, int base);
 
 #endif

@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_base_ul.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/21 10:33:19 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 11:47:56 by jbelless         ###   ########.fr       */
+/*   Created: 2016/03/22 09:58:43 by jbelless          #+#    #+#             */
+/*   Updated: 2016/03/22 10:15:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static void	ft_fill(char tab[100], long int i, int base, int neg)
+static void	ft_fill(char tab[100], unsigned long i, int base)
 {
 	char	*chif;
 	int		j;
@@ -26,31 +25,21 @@ static void	ft_fill(char tab[100], long int i, int base, int neg)
 		i = i / base;
 		j--;
 	}
-	if (neg)
-		tab[j] = '-';
 	free(chif);
 }
 
-char		*ft_itoa_base(long int i, int base)
+char		*ft_itoa_base_ul(unsigned long i, int base)
 {
-	int		neg;
 	char	tab[100];
 	char	*c;
 
 	bzero(tab, 100);
-	neg = 0;
 	if (i == 0)
 	{
 		tab[0] = '0';
 		return (ft_strdup(tab));
 	}
-	if (i < 0)
-	{
-		i = -i;
-		if (base == 10)
-			neg = 1;
-	}
-	ft_fill(tab, i, base, neg);
+	ft_fill(tab, i, base);
 	c = tab;
 	while (*c == 0)
 	{
