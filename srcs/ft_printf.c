@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 17:40:58 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 12:23:03 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ESPFLAG;
 	else if (c == '0')
 		stu->flag = stu->flag | ZEROFLAG;
+	if (stu->flag & PLUSFLAG)
+		stu->flag = stu->flag & ~ESPFLAG;
 //	printf("%s\n",ft_itoa_base(stu->flag, 2));
 
 }

@@ -6,13 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:46:29 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 12:02:38 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:02:21 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_putstr_upper(char *str)
+static void ft_upper(char *str)
 {
 	char *c;
 
@@ -20,23 +20,30 @@ static void	ft_putstr_upper(char *str)
 	while (*c)
 	{
 		if (*c >= 'a' && *c <= 'z')
-			ft_putchar((*c) - 32);
-		else
-			ft_putchar(*c);
+			(*c) -= 32;
 		c++;
 	}
 }
 
 void		ft_printf_grx(t_stu* stu)
 {
-	if (stu->flag & DIESFLAG)
-		ft_putstr("0X");
+	char *str;
+	char *nb;
+
 	if (stu->mod == 1)
-		ft_putstr_upper(ft_itoa_base_ul((unsigned char)va_arg(stu->ap, unsigned int),16));
+		nb = ft_itoa_base_ul((unsigned char)va_arg(stu->ap, unsigned int),16);
 	else if (stu->mod == 2)
-		ft_putstr_upper(ft_itoa_base_ul((unsigned short)va_arg(stu->ap, unsigned int),16));
+		nb = ft_itoa_base_ul((unsigned short)va_arg(stu->ap, unsigned int),16);
 	else if (stu->mod == 0)
-		ft_putstr_upper(ft_itoa_base_ul((unsigned int)va_arg(stu->ap, unsigned int),16));
+		nb = ft_itoa_base_ul((unsigned int)va_arg(stu->ap, unsigned int),16);
 	else
-		ft_putstr_upper(ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),16));
+		nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),16);
+	str = nb;
+	if (stu->prcs >= 0)
+		stu->flag = stu->flag & ~ZEROFLAG;
+	stu->flag = stu->flag & ~PLUSFLAG;
+	stu->flag = stu->flag & ~ESPFLAG;
+	ft_upper(str);
+	ft_print_flag(stu, str, 0);
+	free(nb);
 }

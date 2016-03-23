@@ -76,6 +76,7 @@ SRC_NAME = main.c \
 		   ft_printf_grd.c \
 		   ft_printf_gro.c \
 		   ft_printf_gru.c \
+		   ft_print_flag.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

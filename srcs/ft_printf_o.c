@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 16:00:15 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 12:00:53 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:33:33 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 void	ft_printf_o(t_stu* stu)
 {
-	if (stu->flag & DIESFLAG)
-		ft_putstr("0");
-	if (stu->mod == 1)
-		ft_putstr(ft_itoa_base_ul((unsigned char)va_arg(stu->ap, unsigned int),8));
-	else if (stu->mod == 2)
-		ft_putstr(ft_itoa_base_ul((unsigned short)va_arg(stu->ap, unsigned int),8));
-	else if (stu->mod == 0)
-		ft_putstr(ft_itoa_base_ul((unsigned int)va_arg(stu->ap, unsigned int),8));
-	else
-		ft_putstr(ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),8));
+	char *str;
+	char *nb;
 
+	if (stu->mod == 1)
+		nb = ft_itoa_base_ul((unsigned char)va_arg(stu->ap, unsigned int),8);
+	else if (stu->mod == 2)
+		nb = ft_itoa_base_ul((unsigned short)va_arg(stu->ap, unsigned int),8);
+	else if (stu->mod == 0)
+		nb = ft_itoa_base_ul((unsigned int)va_arg(stu->ap, unsigned int),8);
+	else
+		nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),8);
+	str = nb;
+	if (stu->prcs >= 0)
+	{
+		stu->flag = stu->flag & ~ZEROFLAG;
+		stu->flag = stu->flag & ~DIESFLAG;
+	}
+	stu->flag = stu->flag & ~PLUSFLAG;
+	stu->flag = stu->flag & ~ESPFLAG;
+	ft_print_flag(stu, str, 0);
+	free(nb);
 }

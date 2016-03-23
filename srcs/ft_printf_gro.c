@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:19:58 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 08:22:18 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:41:07 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,17 @@
 
 void	ft_printf_gro(t_stu* stu)
 {
-	if (stu->flag & DIESFLAG)
-		ft_putstr("0");
-	ft_putstr(ft_itoa_base((long int)va_arg(stu->ap, unsigned int),8));
+	char *str;
+	char *nb;
+
+	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),8);
+	str = nb;
+	if (stu->prcs >= 0)
+		stu->flag = stu->flag & ~ZEROFLAG;
+	if (stu->prcs > (int)ft_strlen(str))
+		stu->flag = stu->flag & ~DIESFLAG;
+	stu->flag = stu->flag & ~PLUSFLAG;
+	stu->flag = stu->flag & ~ESPFLAG;
+	ft_print_flag(stu, str, 0);
+	free(nb);
 }

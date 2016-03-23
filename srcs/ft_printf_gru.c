@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:29:26 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 08:30:30 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:48:19 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	ft_printf_gru(t_stu* stu)
 {
-	long int i;
+	char *str;
+	char *nb;
 
-	i = (long int)va_arg(stu->ap, unsigned int);
-	ft_putstr(ft_itoa_base(i, 10));
+	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),10);
+	str = nb;
+	if (stu->prcs >= 0)
+		stu->flag = stu->flag & ~ZEROFLAG;
+	stu->flag = stu->flag & ~PLUSFLAG;
+	stu->flag = stu->flag & ~ESPFLAG;
+	ft_print_flag(stu, str, 0);
+	free(nb);
+
 }

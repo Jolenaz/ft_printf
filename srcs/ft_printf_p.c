@@ -6,15 +6,23 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:18:37 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 15:32:33 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:07:13 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_printf.h"
 
 void	ft_printf_p(t_stu* stu)
 {
-	ft_putstr("0x");
-	ft_putstr(ft_itoa_base((long int)va_arg(stu->ap, void *),16));
+	char *str;
+	char *nb;
+
+	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, void *),16);
+	str = nb;
+	if (stu->prcs >= 0)
+		stu->flag = stu->flag & ~ZEROFLAG;
+	stu->flag = stu->flag & ~PLUSFLAG;
+	stu->flag = stu->flag & ~ESPFLAG;
+	ft_print_flag(stu, str, 0);
+	free(nb);
 }
