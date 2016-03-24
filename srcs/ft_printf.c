@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/23 12:23:03 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:09:18 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 			ft_flag(*str, stu);
 		else if (*str == '.')
 		{
-			if (*(str + 1) < '1' && *(str + 1) > '9' && *(str + 1) != '*')
+			if ((*(str + 1) < '1' || *(str + 1) > '9') && *(str + 1) != '*')
 				stu->prcs = 0;	
 		}
 		else if (*str >= '0' && *str <= '9')
@@ -139,7 +139,8 @@ char	*ft_read(char *str, t_stu *stu, int *i)
 		{
 			if (*str)
 			{
-				ft_putchar(*str);
+				stu->let = *str;
+				ft_printf_c(stu);
 				str++;
 			}
 			return (str);
@@ -174,6 +175,7 @@ void	ft_init_stu(t_stu *stu)
 	stu->conv = 0;
 	stu->prcs = -1;
 	stu->width = 0;
+	stu->let = -2000000000;
 }
 
 int	ft_printf(const char *str, ...)

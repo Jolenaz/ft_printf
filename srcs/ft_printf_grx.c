@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:46:29 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/23 16:02:21 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:49:49 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void		ft_printf_grx(t_stu* stu)
 	str = nb;
 	if (stu->prcs >= 0)
 		stu->flag = stu->flag & ~ZEROFLAG;
+	if (*nb == '0')
+		stu->flag = stu->flag & ~DIESFLAG;
 	stu->flag = stu->flag & ~PLUSFLAG;
 	stu->flag = stu->flag & ~ESPFLAG;
 	ft_upper(str);

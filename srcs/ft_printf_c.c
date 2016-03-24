@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 17:00:08 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/21 17:21:57 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:53:55 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,36 @@
 
 void	ft_printf_c(t_stu* stu)
 {
-	int i;
+	int		i;
 
-	i = va_arg(stu->ap, int);
-	ft_putchar((char)i);
+	if (stu->let == -2000000000)
+		(stu->let = va_arg(stu->ap, int));
+	if ((size_t)stu->width)
+	{
+		if (stu->width && ((stu->flag & MOINSFLAG) == 0))
+		{
+			i = stu->width - 1;
+			while (i)
+			{
+				if (stu->flag & ZEROFLAG)
+					ft_putchar('0');
+				else
+					ft_putchar(' ');
+				i--;
+			}
+			ft_putchar(stu->let);
+		}
+		else if (stu->flag & MOINSFLAG)
+		{
+			i = stu->width - 1;
+			ft_putchar(stu->let);
+			while (i)
+			{
+				ft_putchar(' ');
+				i--;
+			}
+		}
+	}
+	else
+		ft_putchar(stu->let);
 }

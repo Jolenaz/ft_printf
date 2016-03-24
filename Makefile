@@ -1,10 +1,10 @@
-NAME = ft_printf
+NAME = libftprintf.a
 
 #==============#
 #_- Compiler -_#
 #==============#
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 MAKE = make -sC
 
@@ -13,16 +13,8 @@ MAKE = make -sC
 #====================#
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
-INC_PATH = ./include/
+INC_PATH = ./includes/
 LIB_PATH =
-
-#=================#
-#_- lib externe -_#
-#=================#
-
-LIBFT_PATH = ./libft/
-LIBFT = -L$(LIBFT_PATH) -lft
-INC_LIBFT = -I$(LIBFT_PATH)/include/
 
 #===========#
 #_- Color -_#
@@ -63,8 +55,9 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #==================#
 #_- Source Files -_#
 #==================#
-SRC_NAME = main.c \
-		   ft_printf.c \
+MAIN = ./test/main.c
+
+SRC_NAME = ft_printf.c \
 		   ft_printf_s.c \
 		   ft_printf_d.c \
 		   ft_printf_p.c \
@@ -78,14 +71,34 @@ SRC_NAME = main.c \
 		   ft_printf_gru.c \
 		   ft_print_flag.c \
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+LIBFT_SRCS = ft_atof.c ft_lstmap.c ft_putstr.c ft_strmapi.c \
+			ft_atoi.c ft_lstnew.c ft_putstr_fd.c ft_strncat.c \
+			ft_bzero.c ft_lststr_to_tab.c ft_singleton.c ft_strncmp.c \
+			ft_fpower.c ft_memalloc.c ft_strcat.c ft_strncpy.c \
+			ft_isalnum.c ft_memccpy.c ft_strchr.c ft_strnequ.c \
+			ft_isalpha.c ft_memchr.c ft_strclen.c ft_strnew.c \
+			ft_isascii.c ft_memcmp.c ft_strclr.c ft_strnstr.c \
+			ft_isdigit.c ft_memcpy.c ft_strcmp.c ft_strrchr.c \
+			ft_isprint.c ft_memdel.c ft_strcpy.c ft_strsplit.c \
+			ft_itoa.c ft_memmove.c ft_strdel.c ft_strstr.c \
+			ft_itoa_base.c ft_memset.c ft_strdup.c ft_strsub.c \
+			ft_itoa_base_ul.c ft_power.c ft_strequ.c ft_strtrim.c \
+			ft_lstadd.c ft_putchar.c ft_striter.c ft_tolower.c \
+			ft_lstaddback.c ft_putchar_fd.c ft_striteri.c ft_toupper.c \
+			ft_lstdel.c ft_putendl.c ft_strjoin.c get_next_line.c \
+			ft_lstdelone.c ft_putendl_fd.c ft_strlcat.c \
+			ft_lstiter.c ft_putnbr.c ft_strlen.c \
+			ft_lstlen.c ft_putnbr_fd.c ft_strmap.c \
 
-SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
+
+LIB_SRC = $(addprefix libft/, $(LIBFT_SRCS))
+
+OBJ_NAME = $(SRC_NAME:.c=.o) $(LIB_SRC:.c=.o)
+
+SRC = $(addprefix $(SRC_PATH), $(SRC_NAME) $(LIB_SRC))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-INC = $(addprefix -I, $(INC_PATH)) $(INC_LIBFT)
-
-LDFLAGS = $(addprefix -L, $(LIB_PATH)) $(LIBFT)
+INC = $(addprefix -I, $(INC_PATH))
 
 #===========#
 #_- Rules -_#
@@ -93,19 +106,19 @@ LDFLAGS = $(addprefix -L, $(LIB_PATH)) $(LIBFT)
 all: $(NAME)
 
 #	linking
-$(OBJ_PATH)%.o:  $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(dir $@)
 	@$(call cmd_color,$(LINK_COLOR),$(CC) $(CFLAGS) $(INC) -o $@ -c $<)
 
 #	preLinking
 $(OBJ_PATH):
 	@$(call put_title,Linking)
-	@mkdir -p $(OBJ_PATH)
 
 #	Object Compiation
 $(NAME): $(OBJ_PATH) $(OBJ)
 	@$(call put_title,Compilation)
-	@$(call cmd_make,$(LIBFT_PATH))
-	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(LDFLAGS) $(OBJ) -o $@)
+	@$(call cmd_color,$(OBJ_COLOR),ar rc $@ $(OBJ))
+	@$(call cmd_color,$(OBJ_COLOR),ranlib $@)
 
 #	Removing object
 clean:
@@ -126,9 +139,15 @@ norme:
 	[0;38;5;$(NORME_COLOR)mNorme/g; s/Warning/[38;5;$(NORME_COLOR_WAR)m\
 	Warning/g; s/Error/\[38;5;$(NORME_COLOR_ERR)m Error/g"
 
-#	run the program
-run: all
-	@echo "\033[38;5;214mRuning Test:\033[0m"
-	@./$(NAME)
+size:
+	cat $(SRC) | wc -l
 
-.PHONY: all clean fclean re norme run
+test: all
+	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(MAIN) -o ft_printf $(INC) $(NAME))
+
+#	run the program
+run: test
+	@echo "\033[38;5;214mRuning Test:\033[0m"
+	@./ft_printf
+
+.PHONY: all clean fclean re norme test run

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 16:47:17 by jbelless          #+#    #+#             */
-/*   Updated: 2015/12/03 11:21:45 by jbelless         ###   ########.fr       */
+/*   Created: 2015/11/24 08:39:46 by jbelless          #+#    #+#             */
+/*   Updated: 2016/03/24 10:57:04 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+void	ft_putchar(char c)
 {
-	char *dst;
+	static int i = 0;
 
-	dst = NULL;
-	dst = (char*)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (dst == NULL)
-		return (NULL);
-	return (ft_strcpy(dst, src));
+	write(1, &c, 1);
+	i++;
+	ft_singleton(1);
 }

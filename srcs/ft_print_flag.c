@@ -6,11 +6,12 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:15:51 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/23 16:08:26 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:57:01 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 void	ft_print_pref(t_stu *stu, int neg)
 {
@@ -59,6 +60,8 @@ void	ft_print_width(t_stu *stu, char *str, char c, int neg)
 		i -= 2;
 	if (stu->conv == 'p')
 		i -= 2;
+	if (*str == '0')
+		i++;
 	while (i)
 	{
 		ft_putchar(c);
@@ -74,7 +77,8 @@ void	ft_print_flag(t_stu *stu, char *str, int neg)
 		{
 			ft_print_pref(stu, neg);
 			ft_print_prcs(stu, str);
-			ft_putstr(str);
+			if (!(*str == '0' && stu->prcs == 0))
+				ft_putstr(str);
 			ft_print_width(stu, str, ' ', neg);
 		}
 		else
@@ -84,14 +88,16 @@ void	ft_print_flag(t_stu *stu, char *str, int neg)
 				ft_print_width(stu, str, ' ', neg);
 				ft_print_pref(stu, neg);
 				ft_print_prcs(stu, str);
-				ft_putstr(str);
+				if (!(*str == '0' && stu->prcs == 0))
+					ft_putstr(str);
 			}
 			else
 			{
 				ft_print_pref(stu, neg);
 				ft_print_prcs(stu, str);
 				ft_print_width(stu, str, '0', neg);
-				ft_putstr(str);
+				if (!(*str == '0' && stu->prcs == 0))
+					ft_putstr(str);
 			}
 		}
 	}
@@ -99,6 +105,7 @@ void	ft_print_flag(t_stu *stu, char *str, int neg)
 	{
 		ft_print_pref(stu, neg);
 		ft_print_prcs(stu, str);
-		ft_putstr(str);
+		if (!(*str == '0' && stu->prcs == 0))
+			ft_putstr(str);
 	}
 }

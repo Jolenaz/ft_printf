@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:05:33 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/23 12:17:13 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:32:59 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_stu
 	va_list	ap;
 	e_mod	mod;
 	char	conv;
+	int		let;
 }				t_stu;
 
 int		ft_printf(const char *format, ...);

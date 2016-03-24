@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:53:56 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 16:42:37 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:34:58 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	ft_printf_s(t_stu* stu)
 	int i;
 
 	str = ft_strdup(va_arg(stu->ap, char *));
+	if (str == NULL)
+	{
+		ft_putstr("(null)");
+		return ;
+	}
 	if ((size_t)stu->prcs <= ft_strlen(str))
 	{
 		str[stu->prcs] = 0;
