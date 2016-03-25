@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 17:00:08 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 09:58:43 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:57:40 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_printf_c(t_stu* stu)
 {
 	int		i;
 
+	if (stu->mod == l)
+		ft_printf_grc(stu);
 	if (stu->let == -2000000000)
 		(stu->let = va_arg(stu->ap, int));
 	if ((size_t)stu->width)

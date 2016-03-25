@@ -69,6 +69,8 @@ SRC_NAME = ft_printf.c \
 		   ft_printf_grd.c \
 		   ft_printf_gro.c \
 		   ft_printf_gru.c \
+		   ft_printf_grc.c \
+		   ft_printf_grs.c \
 		   ft_print_flag.c \
 
 LIBFT_SRCS = ft_atof.c ft_lstmap.c ft_putstr.c ft_strmapi.c \

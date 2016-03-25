@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 09:56:22 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 17:18:10 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	ft_fct(void	(*ft_conv[127])(t_stu*))
 	ft_conv['D'] = &ft_printf_grd;
 	ft_conv['O'] = &ft_printf_gro;
 	ft_conv['U'] = &ft_printf_gru;
+	ft_conv['C'] = &ft_printf_grc;
+	ft_conv['S'] = &ft_printf_grs;
 }
 
 char	*ft_read(char *str, t_stu *stu, int *i)
