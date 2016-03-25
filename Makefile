@@ -143,7 +143,7 @@ size:
 	cat $(SRC) | wc -l
 
 test: all
-	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(MAIN) -o ft_printf $(INC) $(NAME))
+	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(CFLAGS) $(MAIN) -o ft_printf $(INC) $(NAME))
 
 #	run the program
 run: test

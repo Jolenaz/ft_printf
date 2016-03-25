@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:19:58 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/23 15:41:07 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:06:35 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	ft_printf_gro(t_stu* stu)
 
 	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),8);
 	str = nb;
-	if (stu->prcs >= 0)
+	if (stu->prcs > 0)
+	{
 		stu->flag = stu->flag & ~ZEROFLAG;
-	if (stu->prcs > (int)ft_strlen(str))
+		stu->flag = stu->flag & ~DIESFLAG;
+	}
+	else if (stu->prcs == -1 && *str == '0')
 		stu->flag = stu->flag & ~DIESFLAG;
 	stu->flag = stu->flag & ~PLUSFLAG;
 	stu->flag = stu->flag & ~ESPFLAG;

@@ -6,12 +6,11 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/24 10:09:18 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 09:56:22 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 char	*ft_prcs(char *c, t_stu *stu)
 {
@@ -47,7 +46,6 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ZEROFLAG;
 	if (stu->flag & PLUSFLAG)
 		stu->flag = stu->flag & ~ESPFLAG;
-//	printf("%s\n",ft_itoa_base(stu->flag, 2));
 
 }
 
@@ -186,7 +184,6 @@ int	ft_printf(const char *str, ...)
 	ft_init_stu(&stu);
 	va_start(stu.ap, str);
 	ft_read_format(str, &stu);
-//	printf("\n_______nb de %% =  %d\n",stu.nb);
 
 	res = ft_singleton(-1);
 	ft_singleton(0);

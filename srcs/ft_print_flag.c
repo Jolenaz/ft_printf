@@ -6,7 +6,7 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 12:15:51 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/24 10:57:01 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:10:56 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void	ft_print_width(t_stu *stu, char *str, char c, int neg)
 		i--;
 	if ((stu->flag & DIESFLAG && (stu->conv == 'x' || stu->conv == 'X')))
 		i -= 2;
-	if (stu->conv == 'p')
+	if (stu->conv == 'p' && stu->width > (int)ft_strlen(str) + 2)
 		i -= 2;
-	if (*str == '0')
+	else if (stu->conv == 'p') 
+		i = 0;
+	if (*str == '0' && stu->prcs == 0)
 		i++;
 	while (i)
 	{

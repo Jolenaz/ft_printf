@@ -6,14 +6,14 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 10:33:19 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/22 11:47:56 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/25 09:39:46 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+#include <limits.h>
 
-static void	ft_fill(char tab[100], long int i, int base, int neg)
+static void	ft_fill(char tab[100], long long int i, int base, int neg)
 {
 	char	*chif;
 	int		j;
@@ -31,7 +31,7 @@ static void	ft_fill(char tab[100], long int i, int base, int neg)
 	free(chif);
 }
 
-char		*ft_itoa_base(long int i, int base)
+char		*ft_itoa_base(long long int i, int base)
 {
 	int		neg;
 	char	tab[100];
@@ -40,10 +40,9 @@ char		*ft_itoa_base(long int i, int base)
 	bzero(tab, 100);
 	neg = 0;
 	if (i == 0)
-	{
-		tab[0] = '0';
-		return (ft_strdup(tab));
-	}
+		return (ft_strdup("0"));
+	if (i == LONG_MIN)
+		return (ft_strdup("-9223372036854775808"));
 	if (i < 0)
 	{
 		i = -i;
