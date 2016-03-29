@@ -58,6 +58,7 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 MAIN = ./test/main.c
 
 SRC_NAME = ft_printf.c \
+		   ft_printf_parser.c \
 		   ft_printf_s.c \
 		   ft_printf_d.c \
 		   ft_printf_p.c \

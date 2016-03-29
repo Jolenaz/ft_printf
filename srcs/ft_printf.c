@@ -6,33 +6,13 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 09:14:41 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 17:18:10 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/29 17:33:38 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_prcs(char *c, t_stu *stu)
-{
-	stu->prcs = ft_atoi(c);
-	while (*c >= '0' && *c <= '9')
-	{
-		c++;
-	}
-	return(--c);
-}
-
-char	*ft_width(char *c, t_stu *stu)
-{
-	stu->width = ft_atoi(c);
-	while (*c >= '0' && *c <= '9')
-	{
-		c++;
-	}
-	return(--c);
-}
-
-void	ft_flag(char c, t_stu *stu)
+static void	ft_flag(char c, t_stu *stu)
 {
 	if (c == '#')
 		stu->flag = stu->flag | DIESFLAG;
@@ -46,115 +26,41 @@ void	ft_flag(char c, t_stu *stu)
 		stu->flag = stu->flag | ZEROFLAG;
 	if (stu->flag & PLUSFLAG)
 		stu->flag = stu->flag & ~ESPFLAG;
-
 }
 
-void	ft_fct(void	(*ft_conv[127])(t_stu*))
-{
-	ft_conv['s'] = &ft_printf_s;
-	ft_conv['i'] = &ft_printf_d;
-	ft_conv['d'] = &ft_printf_d;
-	ft_conv['p'] = &ft_printf_p;
-	ft_conv['x'] = &ft_printf_x;
-	ft_conv['X'] = &ft_printf_grx;
-	ft_conv['o'] = &ft_printf_o;
-	ft_conv['u'] = &ft_printf_u;
-	ft_conv['c'] = &ft_printf_c;
-	ft_conv['D'] = &ft_printf_grd;
-	ft_conv['O'] = &ft_printf_gro;
-	ft_conv['U'] = &ft_printf_gru;
-	ft_conv['C'] = &ft_printf_grc;
-	ft_conv['S'] = &ft_printf_grs;
-}
-
-char	*ft_read(char *str, t_stu *stu, int *i)
+static char	*ft_read(char *str, t_stu *stu, int *i)
 {
 	char	cont;
-	void	(*ft_conv[127])(t_stu*);
 
-	ft_fct(ft_conv);
 	cont = 1;
 	while (cont)
 	{
-		if (*str == 'h')
-		{
-			if (*(str + 1) == 'h')
-			{
-				stu->mod = hh;
-				str++;
-			}
-			else
-				stu->mod = h;
-		}
-		else if (*str == 'l')
-		{
-			if (*(str + 1) == 'l')
-			{
-				stu->mod = ll;
-				str++;
-			}
-			else
-				stu->mod = l;
-		}
-		else if (*str == 'j')
-			stu->mod = j;
-		else if (*str == 'z')
-			stu->mod = z;
-		else if (*str  == '#' || *str  == '+' || *str  == '-' || *str  == ' ' || (*str  == '0' && *(str - 1) != '.'))
+		if (*str == 'h' || *str == 'l' || *str == 'j' || *str == 'z')
+			ft_parser1(&str, stu);
+		else if (*str == '#' || *str == '+' || *str == '-' ||
+				*str == ' ' || (*str == '0' && *(str - 1) != '.'))
 			ft_flag(*str, stu);
-		else if (*str == '.')
-		{
-			if ((*(str + 1) < '1' || *(str + 1) > '9') && *(str + 1) != '*')
-				stu->prcs = 0;	
-		}
-		else if (*str >= '0' && *str <= '9')
-		{
-			if (*(str - 1) == '.')
-				str = ft_prcs(str, stu);
-			else
-				str = ft_width(str, stu);
-		}
-		else if (*str == '*')
-		{
-			if (*(str - 1) == '.')
-				stu->prcs = va_arg(stu->ap, int);
-			else
-			{
-				stu->width = va_arg(stu->ap, int);
-				if (stu->width < 0)
-				{
-					stu->width *= -1;
-					stu->flag = stu->flag | MOINSFLAG;
-				}
-			}
-		}
-		else if (ft_strchr("sSpdDioOuUxXcC",*str) && *str)
-		{
-			stu->conv = *str;
-			(ft_conv[(int)*str])(stu);
-			cont = 0;
-			(*i)++;
-		}
+		else if (*str == '.' || (*str >= '0' && *str <= '9') || *str == '*')
+			ft_parser2(&str, stu);
 		else
 		{
-			if (*str)
-			{
-				stu->let = *str;
-				ft_printf_c(stu);
-				str++;
-			}
-			return (str);
+			if (ft_parser3(&str, stu, i) == 1)
+				cont = 0;
+			else
+				return (str);
 		}
 		str++;
 	}
 	return (str);
 }
 
-void ft_read_format(const char *str, t_stu *stu)
+static void	ft_read_format(const char *str, t_stu *stu)
 {
-	char *c = (char *)str;
-	int i = 0;
+	char	*c;
+	int		i;
 
+	i = 0;
+	c = (char *)str;
 	while (*c)
 	{
 		if (*c == '%')
@@ -168,7 +74,7 @@ void ft_read_format(const char *str, t_stu *stu)
 	stu->nb = i;
 }
 
-void	ft_init_stu(t_stu *stu)
+static void	ft_init_stu(t_stu *stu)
 {
 	stu->flag = 0;
 	stu->mod = none;
@@ -178,7 +84,7 @@ void	ft_init_stu(t_stu *stu)
 	stu->let = -2000000000;
 }
 
-int	ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
 	int		res;
 	t_stu	stu;
@@ -186,8 +92,8 @@ int	ft_printf(const char *str, ...)
 	ft_init_stu(&stu);
 	va_start(stu.ap, str);
 	ft_read_format(str, &stu);
-
 	res = ft_singleton(-1);
 	ft_singleton(0);
+	va_end(stu.ap);
 	return (res);
 }

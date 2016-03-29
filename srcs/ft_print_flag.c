@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_flag.c                                   :+:      :+:    :+:   */
+/*   ft_print_flag.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/23 12:15:51 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 11:10:56 by jbelless         ###   ########.fr       */
+/*   Created: 2016/03/29 16:10:47 by jbelless          #+#    #+#             */
+/*   Updated: 2016/03/29 16:17:29 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-void	ft_print_pref(t_stu *stu, int neg)
+static void	ft_print_pref(t_stu *stu, int neg)
 {
 	if (neg)
 		ft_putchar('-');
@@ -34,7 +33,7 @@ void	ft_print_pref(t_stu *stu, int neg)
 		ft_putstr("0x");
 }
 
-void	ft_print_prcs(t_stu *stu, char *str)
+static void	ft_print_prcs(t_stu *stu, char *str)
 {
 	int j;
 
@@ -49,18 +48,20 @@ void	ft_print_prcs(t_stu *stu, char *str)
 	}
 }
 
-void	ft_print_width(t_stu *stu, char *str, char c, int neg)
+static void	ft_print_width(t_stu *stu, char *str, char c, int neg)
 {
 	int i;
 
-	i = stu->width - (stu->prcs > (int)ft_strlen(str) ? stu->prcs : ft_strlen(str));
-	if (neg || stu->flag & PLUSFLAG || stu->flag & ESPFLAG || (stu->flag & DIESFLAG && (stu->conv == 'o' || stu->conv == 'O')))
+	i = stu->width -
+		(stu->prcs > (int)ft_strlen(str) ? stu->prcs : ft_strlen(str));
+	if (neg || stu->flag & PLUSFLAG || stu->flag & ESPFLAG ||
+			(stu->flag & DIESFLAG && (stu->conv == 'o' || stu->conv == 'O')))
 		i--;
 	if ((stu->flag & DIESFLAG && (stu->conv == 'x' || stu->conv == 'X')))
 		i -= 2;
 	if (stu->conv == 'p' && stu->width > (int)ft_strlen(str) + 2)
 		i -= 2;
-	else if (stu->conv == 'p') 
+	else if (stu->conv == 'p')
 		i = 0;
 	if (*str == '0' && stu->prcs == 0)
 		i++;
@@ -71,7 +72,27 @@ void	ft_print_width(t_stu *stu, char *str, char c, int neg)
 	}
 }
 
-void	ft_print_flag(t_stu *stu, char *str, int neg)
+static void	ft_print_flag2(t_stu *stu, char *str, int neg)
+{
+	if ((stu->flag & ZEROFLAG) == 0)
+	{
+		ft_print_width(stu, str, ' ', neg);
+		ft_print_pref(stu, neg);
+		ft_print_prcs(stu, str);
+		if (!(*str == '0' && stu->prcs == 0))
+			ft_putstr(str);
+	}
+	else
+	{
+		ft_print_pref(stu, neg);
+		ft_print_prcs(stu, str);
+		ft_print_width(stu, str, '0', neg);
+		if (!(*str == '0' && stu->prcs == 0))
+			ft_putstr(str);
+	}
+}
+
+void		ft_print_flag(t_stu *stu, char *str, int neg)
 {
 	if (stu->width > stu->prcs && stu->width > (int)ft_strlen(str))
 	{
@@ -84,24 +105,7 @@ void	ft_print_flag(t_stu *stu, char *str, int neg)
 			ft_print_width(stu, str, ' ', neg);
 		}
 		else
-		{
-			if ((stu->flag & ZEROFLAG) == 0)
-			{
-				ft_print_width(stu, str, ' ', neg);
-				ft_print_pref(stu, neg);
-				ft_print_prcs(stu, str);
-				if (!(*str == '0' && stu->prcs == 0))
-					ft_putstr(str);
-			}
-			else
-			{
-				ft_print_pref(stu, neg);
-				ft_print_prcs(stu, str);
-				ft_print_width(stu, str, '0', neg);
-				if (!(*str == '0' && stu->prcs == 0))
-					ft_putstr(str);
-			}
-		}
+			ft_print_flag2(stu, str, neg);
 	}
 	else
 	{

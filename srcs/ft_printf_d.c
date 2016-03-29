@@ -6,29 +6,29 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:10:05 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 09:47:46 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/29 15:34:03 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printf_d(t_stu* stu)
+void	ft_printf_d(t_stu *stu)
 {
-	char *str;
-	char *nb;
-	int neg;
+	char	*str;
+	char	*nb;
+	int		neg;
 
 	neg = 0;
 	if (stu->mod == 0)
-		nb = ft_strdup(ft_itoa_base((int)va_arg(stu->ap, int),10));
+		nb = ft_strdup(ft_itoa_base((int)va_arg(stu->ap, int), 10));
 	else if (stu->mod == 1)
-		nb = ft_strdup(ft_itoa_base((char)va_arg(stu->ap, int),10));
+		nb = ft_strdup(ft_itoa_base((char)va_arg(stu->ap, int), 10));
 	else if (stu->mod == 2)
-		nb = ft_strdup(ft_itoa_base((short)va_arg(stu->ap, int),10));
+		nb = ft_strdup(ft_itoa_base((short)va_arg(stu->ap, int), 10));
 	else if (stu->mod == 3)
-		nb = ft_strdup(ft_itoa_base((long)va_arg(stu->ap, long int),10));
+		nb = ft_strdup(ft_itoa_base((long)va_arg(stu->ap, long int), 10));
 	else
-		nb = ft_strdup(ft_itoa_base((long)va_arg(stu->ap, long long int),10));
+		nb = ft_strdup(ft_itoa_base((long)va_arg(stu->ap, long long int), 10));
 	str = nb;
 	if (*str == '-')
 	{

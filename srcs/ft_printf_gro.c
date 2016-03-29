@@ -6,18 +6,18 @@
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:19:58 by jbelless          #+#    #+#             */
-/*   Updated: 2016/03/25 11:06:35 by jbelless         ###   ########.fr       */
+/*   Updated: 2016/03/29 15:33:50 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printf_gro(t_stu* stu)
+void	ft_printf_gro(t_stu *stu)
 {
 	char *str;
 	char *nb;
 
-	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long),8);
+	nb = ft_itoa_base_ul((unsigned long)va_arg(stu->ap, unsigned long), 8);
 	str = nb;
 	if (stu->prcs > 0)
 	{
